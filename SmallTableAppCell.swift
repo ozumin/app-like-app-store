@@ -9,25 +9,11 @@ import UIKit
 
 class SmallTableAppCell: UICollectionViewCell {
 
-    let tagLabel: UILabel = {
-        let tagLabel = UILabel()
-        tagLabel.textColor = .systemBlue
-        tagLabel.font = UIFont.preferredFont(forTextStyle: .caption1)
-        return tagLabel
-    }()
-
     let nameLabel: UILabel = {
         let nameLabel = UILabel()
         nameLabel.textColor = .label
-        nameLabel.font = UIFont.preferredFont(forTextStyle: .title1)
+        nameLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
         return nameLabel
-    }()
-
-    let subheadingLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .systemGray
-        label.font = UIFont.preferredFont(forTextStyle: .title3)
-        return label
     }()
 
     let imageView: UIImageView = {
@@ -46,30 +32,16 @@ class SmallTableAppCell: UICollectionViewCell {
     }
 
     func setUpInternalViews() {
-        self.backgroundColor = .green
-        let verticalStackView: UIStackView = {
-            let vertivalStackView = UIStackView()
-            vertivalStackView.axis = .vertical
-            vertivalStackView.distribution = .equalSpacing
-            vertivalStackView.alignment = .fill
-            return vertivalStackView
-        }()
-
-        verticalStackView.addArrangedSubviews(self.tagLabel, self.nameLabel, self.subheadingLabel, self.imageView, constraints:
-                                                self.imageView.widthAnchor.constraint(equalTo: verticalStackView.widthAnchor),
-                                              self.imageView.heightAnchor.constraint(equalTo: self.imageView.widthAnchor, multiplier: 9 / 16))
-
-        self.contentView.addSubviews(verticalStackView, constraints:
-                                        verticalStackView.widthAnchor.constraint(equalTo: self.contentView.widthAnchor),
-                                     verticalStackView.heightAnchor.constraint(equalTo: self.contentView.heightAnchor),
-                                     verticalStackView.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor),
-                                     verticalStackView.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor))
+        self.contentView.addSubviews(self.imageView, self.nameLabel, constraints:
+                                        self.imageView.widthAnchor.constraint(equalTo: self.contentView.widthAnchor),
+                                     self.imageView.heightAnchor.constraint(equalTo: self.imageView.widthAnchor, multiplier: 9 / 16),
+                                     self.nameLabel.topAnchor.constraint(equalTo: self.imageView.bottomAnchor, constant: 5),
+                                     self.nameLabel.leftAnchor.constraint(equalTo: self.contentView.leftAnchor),
+                                     self.nameLabel.widthAnchor.constraint(equalTo: self.contentView.widthAnchor))
 
     }
 
     func configure(app: App) {
-        self.tagLabel.text = app.tagline
-        self.subheadingLabel.text = app.subheading
         self.nameLabel.text = app.name
 
         if let image = UIImage(named: app.image) {
